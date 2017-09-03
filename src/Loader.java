@@ -1,4 +1,12 @@
-
+/**
+ * Project skeleton for SWEN20003: Object Oriented Software Development 2017
+ * by Eleanor McMurtry
+ * 
+ * @author 	Luke Hedt
+ * StuID: 	832153
+ * Date:	03/09/2017
+ * 
+ */
 
 public class Loader {	
 	// Converts a world coordinate to a tile coordinate,
