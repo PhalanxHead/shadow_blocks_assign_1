@@ -11,7 +11,7 @@
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Graphics;
 
-public class Sprite {	
+public class Sprite {
 	public Sprite(String image_src, float x, float y) {
 	}
 	

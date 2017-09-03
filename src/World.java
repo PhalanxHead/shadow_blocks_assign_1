@@ -15,9 +15,11 @@ public class World {
 	public World() {
 	}
 	
+	/* Where Object-Manipulating Input can be mapped */
 	public void update(Input input, int delta) {
 	}
 	
+	/* Where you draw each element in the world */
 	public void render(Graphics g) {
 	}
 }

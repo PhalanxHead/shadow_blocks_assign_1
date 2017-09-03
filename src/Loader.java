@@ -22,6 +22,7 @@ public class Loader {
 	 * @return
 	 */
 	public static Sprite[] loadSprites(String filename) {
+		// Need Scanner or ReadBuffer
 		return null;
 	}
 }

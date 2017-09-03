@@ -50,6 +50,12 @@ public class App extends BasicGame
         // Get data about the current input (keyboard state).
         Input input = gc.getInput();
         world.update(input, delta);
+        
+        /* Added Escape Clause because it will probably be less annoying having it */
+        if (input.isKeyDown(Input.KEY_ESCAPE)) {
+			gc.exit();
+		}
+        
     }
 
     /** Render the entire screen, so it reflects the current game state.
