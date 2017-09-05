@@ -21,5 +21,6 @@ public class World {
 	
 	/* Where you draw each element in the world */
 	public void render(Graphics g) {
+		Loader.loadSprites("");
 	}
 }

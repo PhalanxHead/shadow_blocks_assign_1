@@ -12,7 +12,13 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.Graphics;
 
 public class Sprite {
+	public String image_src;
+	public float x, y;
+
 	public Sprite(String image_src, float x, float y) {
+		this.image_src = image_src;
+		this.x = x;
+		this.y = y;
 	}
 	
 	public void update(Input input, int delta) {

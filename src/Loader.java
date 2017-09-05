@@ -22,6 +22,14 @@ public class Loader {
 	 * @return
 	 */
 	public static Sprite[] loadSprites(String filename) {
+		String img = "res/floor.png";
+		float x=5,y=10;
+		Sprite sprites[] = new Sprite[5];
+		
+		sprites[0] = new Sprite(img, x, y);
+		
+		System.out.printf("%s, %f, %f", sprites[0].image_src, sprites[0].x, sprites[0].y);
+		
 		// Need Scanner or ReadBuffer
 		return null;
 	}
