@@ -19,12 +19,14 @@ public class World {
 	private float[] boardSize;
 	private float[] offset = new float[2];
 	ArrayList<Sprite> sprites;
+	Player player;
 
 	// +++ WORLD CONSTRUCTOR +++
 	public World(String filename) {
 		// Load the sprites into the ArrayList and gets the size of the board.
 		this.boardSize = Loader.getWorldSize(filename);
 		sprites = Loader.loadSprites(filename);
+		player = Loader.getPlayer();
 		
 		// Calculates number of pixels needed to put board in center of window
 		this.offset[App.WORLD_X] = (App.SCREEN_WIDTH - (this.boardSize[App.WORLD_X] * App.TILE_SIZE)) / 2;
@@ -33,6 +35,7 @@ public class World {
 	
 	/* Where Object-Manipulating Input can be mapped */
 	public void update(Input input, int delta) {
+		player.update(input, delta);
 	}
 	
 	/* Where you draw each element in the world */
@@ -42,6 +45,8 @@ public class World {
 		for(int i=0; i<sprites.size(); i++) {
 			sprites.get(i).render(g, this.offset);
 		}
+		
+		player.render(g, offset);
 		
 	}
 }

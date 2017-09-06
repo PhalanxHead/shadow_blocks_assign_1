@@ -12,6 +12,8 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 
+import org.newdawn.slick.SlickException;
+
 public class Loader {
 	
 	// Placeholders for indexes s.t. there's no floating numbers :)
@@ -19,6 +21,8 @@ public class Loader {
 	final static int IMG_X = 1;
 	final static int IMG_Y = 2;
 
+	// Holds the player object for return later
+	public static Player player;
 	
 	// Converts a world coordinate to a tile coordinate,
 	// and returns if that location is a blocked tile
@@ -60,7 +64,7 @@ public class Loader {
 			// Read the rest of the file and store in an ArrayList<Sprite>
 			while ((lvlLine = br.readLine()) != null) {
 				
-				String img_src;
+				String image_src;
 				float sprite_x;
 				float sprite_y;
 				
@@ -69,17 +73,21 @@ public class Loader {
 				out[IMG_Y] = lvlLine.split(",")[IMG_Y];
 				
 				if(out[IMG_SRC].equals("player")) {
-					//Add a player object to the array
+					image_src = String.format("%s/%s.%s", LOCATION, "player_left", FILETYPE);
+					sprite_x = Float.parseFloat(out[IMG_X]);
+					sprite_y = Float.parseFloat(out[IMG_Y]);
+					
+					player = new Player(image_src, sprite_x, sprite_y);
 					continue;
 				}
 				
 				// Calculate needed values :D
-				img_src = String.format("%s/%s.%s", LOCATION, lvlLine.split(",")[IMG_SRC], FILETYPE);
+				image_src = String.format("%s/%s.%s", LOCATION, lvlLine.split(",")[IMG_SRC], FILETYPE);
 				sprite_x = Float.parseFloat(out[IMG_X]);
 				sprite_y = Float.parseFloat(out[IMG_Y]);
 				
 				// Create a new Sprite object with the above info and add it to the ArrayList
-				currSprite = new Sprite(img_src, sprite_x, sprite_y);
+				currSprite = new Sprite(image_src, sprite_x, sprite_y);
 				sprites.add(currSprite);
 			}
 				
@@ -90,6 +98,18 @@ public class Loader {
 		return sprites;
 	}
 	
+	/**
+	 * 
+	 * @return player
+	 * 
+	 * Returns the player object
+	 */
+	public static Player getPlayer() {
+		
+		return Loader.player;
+		
+	}
+
 	/*
 	 * @param filename
 	 * @return float[] worldSize
