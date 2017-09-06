@@ -13,10 +13,10 @@ import org.newdawn.slick.SlickException;
 
 public class Player extends Sprite {
 	// +++ Player Variables +++
-	String image_src;
+	private String image_src;
 	private float playerX;
 	private float playerY;
-	Image img;
+	private Image img;
 	
 	/**
 	 * @param type

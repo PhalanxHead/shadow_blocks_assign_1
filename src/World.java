@@ -18,8 +18,8 @@ public class World {
 	// +++ World Variable Decs +++
 	private float[] boardSize;
 	public static float[] offset = new float[2];
-	ArrayList<Sprite> sprites;
-	Player player;
+	private ArrayList<Sprite> sprites;
+	private Player player;
 
 	/**
 	 * @param filename

@@ -20,7 +20,7 @@ public class Sprite {
 	public String type;
 	public String image_src;
 	public float x, y;
-	Image img;
+	private Image img;
 	
 	// Need to reference the home of the assets
 	final String LOCATION = "res";

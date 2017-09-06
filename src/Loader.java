@@ -23,9 +23,9 @@ import java.util.Arrays;
 public class Loader {
 	
 	// Placeholders for indexes s.t. there's no floating numbers :)
-	final static int TYPE = 0;
-	final static int IMG_X = 1;
-	final static int IMG_Y = 2;
+	private final static int TYPE = 0;
+	private final static int IMG_X = 1;
+	private final static int IMG_Y = 2;
 	
 	// Holds the player object for return later
 	public static Player player;
@@ -35,7 +35,7 @@ public class Loader {
 	// Notes where a player can't move to.
 	public static boolean[][] blockedTiles;
 	// Array of types that block the player.
-	static String[] blockedTypes = {"wall"};
+	private static String[] blockedTypes = {"wall"};
 	
 	/** Converts a world coordinate to a tile coordinate,
 	 * and returns if that location is a blocked tile
