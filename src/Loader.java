@@ -66,6 +66,7 @@ public class Loader {
 				out[IMG_X] = lvlLine.split(",")[IMG_X];
 				out[IMG_Y] = lvlLine.split(",")[IMG_Y];
 				
+				// Create a player type for the player object
 				if(out[TYPE].equals("player")) {
 					type = "player";
 					image_src = "player_left";
