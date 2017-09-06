@@ -20,6 +20,8 @@ public class World {
 	public static float[] offset = new float[2];
 	private ArrayList<Sprite> sprites;
 	private Player player;
+	
+	private final int BLACK_SIDES = 2;
 
 	/**
 	 * @param filename
@@ -34,8 +36,8 @@ public class World {
 		player = Loader.getPlayer();
 		
 		// Calculates number of pixels needed to put board in center of window
-		World.offset[App.WORLD_X] = (App.SCREEN_WIDTH - (this.boardSize[App.WORLD_X] * App.TILE_SIZE)) / 2;
-		World.offset[App.WORLD_Y] = (App.SCREEN_HEIGHT - (this.boardSize[App.WORLD_Y] * App.TILE_SIZE)) / 2;
+		World.offset[App.WORLD_X] = (App.SCREEN_WIDTH - (this.boardSize[App.WORLD_X] * App.TILE_SIZE)) / BLACK_SIDES;
+		World.offset[App.WORLD_Y] = (App.SCREEN_HEIGHT - (this.boardSize[App.WORLD_Y] * App.TILE_SIZE)) / BLACK_SIDES;
 	}
 	
 	/**
