@@ -13,6 +13,7 @@ import org.newdawn.slick.Input;
 
 public class World {	
 	public World() {
+		Loader.loadSprites("res/levels/0.lvl");
 	}
 	
 	/* Where Object-Manipulating Input can be mapped */
@@ -21,6 +22,5 @@ public class World {
 	
 	/* Where you draw each element in the world */
 	public void render(Graphics g) {
-		Loader.loadSprites("");
 	}
 }
