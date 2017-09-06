@@ -46,7 +46,7 @@ public class World {
 			sprites.get(i).render(g, this.offset);
 		}
 		
-		player.render(g, offset);
+		player.render(g, this.offset);
 		
 	}
 }

@@ -17,14 +17,20 @@ import org.newdawn.slick.SlickException;
 public class Sprite {
 	
 	// +++ VARIABLE DECS +++
+	public String type;
 	public String image_src;
 	public float x, y;
 	Image img;
+	
+	// Need to reference the home of the assets
+	final String LOCATION = "res";
+	final String FILETYPE = "png";
 
 	// +++ SPRITE CONSTRCTOR +++
-	public Sprite(String image_src, float x, float y) throws SlickException {
+	public Sprite(String type, String image_src, float x, float y) throws SlickException {
 		
-		this.image_src = image_src;
+		this.type = type;
+		this.image_src = String.format("%s/%s.%s", LOCATION, image_src, FILETYPE);
 		// The corners of the tiles need to be adjusted for the size of the tiles!
 		this.x = App.TILE_SIZE * x;
 		this.y = App.TILE_SIZE * y;

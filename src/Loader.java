@@ -12,12 +12,10 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 
-import org.newdawn.slick.SlickException;
-
 public class Loader {
 	
 	// Placeholders for indexes s.t. there's no floating numbers :)
-	final static int IMG_SRC = 0;
+	final static int TYPE = 0;
 	final static int IMG_X = 1;
 	final static int IMG_Y = 2;
 
@@ -43,11 +41,6 @@ public class Loader {
 		String[] out = new String[3];
 		ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 		Sprite currSprite;
-	
-		
-		// Need to reference the home of the assets
-		final String LOCATION = "res";
-		final String FILETYPE = "png";
 		
 		/*
 		 * Read in sprites from file
@@ -64,30 +57,32 @@ public class Loader {
 			// Read the rest of the file and store in an ArrayList<Sprite>
 			while ((lvlLine = br.readLine()) != null) {
 				
+				String type;
 				String image_src;
 				float sprite_x;
 				float sprite_y;
 				
-				out[IMG_SRC] = lvlLine.split(",")[IMG_SRC];
+				out[TYPE] = lvlLine.split(",")[TYPE];
 				out[IMG_X] = lvlLine.split(",")[IMG_X];
 				out[IMG_Y] = lvlLine.split(",")[IMG_Y];
 				
-				if(out[IMG_SRC].equals("player")) {
-					image_src = String.format("%s/%s.%s", LOCATION, "player_left", FILETYPE);
+				if(out[TYPE].equals("player")) {
+					type = "player";
+					image_src = "player_left";
 					sprite_x = Float.parseFloat(out[IMG_X]);
 					sprite_y = Float.parseFloat(out[IMG_Y]);
 					
-					player = new Player(image_src, sprite_x, sprite_y);
+					player = new Player(type, image_src, sprite_x, sprite_y);
 					continue;
 				}
 				
 				// Calculate needed values :D
-				image_src = String.format("%s/%s.%s", LOCATION, lvlLine.split(",")[IMG_SRC], FILETYPE);
+				type = image_src = out[TYPE];
 				sprite_x = Float.parseFloat(out[IMG_X]);
 				sprite_y = Float.parseFloat(out[IMG_Y]);
 				
 				// Create a new Sprite object with the above info and add it to the ArrayList
-				currSprite = new Sprite(image_src, sprite_x, sprite_y);
+				currSprite = new Sprite(type, image_src, sprite_x, sprite_y);
 				sprites.add(currSprite);
 			}
 				
