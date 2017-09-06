@@ -15,13 +15,14 @@ import org.newdawn.slick.SlickException;
 
 public class World {
 	
+	// +++ World Variable Decs +++
 	private float[] boardSize;
-	public float[] offset = new float[2];
+	private float[] offset = new float[2];
 	ArrayList<Sprite> sprites;
 
-	
+	// +++ WORLD CONSTRUCTOR +++
 	public World(String filename) {
-		// Load the sprites into the ArrayList
+		// Load the sprites into the ArrayList and gets the size of the board.
 		this.boardSize = Loader.getWorldSize(filename);
 		sprites = Loader.loadSprites(filename);
 		

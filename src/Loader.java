@@ -59,19 +59,27 @@ public class Loader {
 				
 			// Read the rest of the file and store in an ArrayList<Sprite>
 			while ((lvlLine = br.readLine()) != null) {
-					
+				
+				String img_src;
+				float sprite_x;
+				float sprite_y;
+				
 				out[IMG_SRC] = lvlLine.split(",")[IMG_SRC];
 				out[IMG_X] = lvlLine.split(",")[IMG_X];
 				out[IMG_Y] = lvlLine.split(",")[IMG_Y];
 				
 				if(out[IMG_SRC].equals("player")) {
 					//Add a player object to the array
-					break;
+					continue;
 				}
 				
+				// Calculate needed values :D
+				img_src = String.format("%s/%s.%s", LOCATION, lvlLine.split(",")[IMG_SRC], FILETYPE);
+				sprite_x = Float.parseFloat(out[IMG_X]);
+				sprite_y = Float.parseFloat(out[IMG_Y]);
+				
 				// Create a new Sprite object with the above info and add it to the ArrayList
-				currSprite = new Sprite(String.format("%s/%s.%s", LOCATION, lvlLine.split(",")[IMG_SRC], FILETYPE), 
-						Float.parseFloat(out[IMG_X]), Float.parseFloat(out[IMG_Y]));
+				currSprite = new Sprite(img_src, sprite_x, sprite_y);
 				sprites.add(currSprite);
 			}
 				
@@ -86,24 +94,26 @@ public class Loader {
 	 * @param filename
 	 * @return float[] worldSize
 	 * 
-	 * Gets the size of the game board and returns it as an array.
+	 * Gets the size of the game board and returns it as an array. Probably a better way of doing this but
+	 * I can't think of it right now.
 	 */
 	public static float[] getWorldSize(String filename) {
 		
 		float[] worldSize = new float[2];
 		
 		try (BufferedReader br =
-				new BufferedReader(new FileReader(filename))) {
-				
-				String lvlLine;
-				if((lvlLine = br.readLine()) != null) {
-					worldSize[App.WORLD_X] = Float.parseFloat(lvlLine.split(",")[App.WORLD_X]);
-					worldSize[App.WORLD_Y] = Float.parseFloat(lvlLine.split(",")[App.WORLD_Y]);
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
+			new BufferedReader(new FileReader(filename))) {
+			
+			// Reads the first line of the file if it exists and stores it.
+			String lvlLine;
+			if((lvlLine = br.readLine()) != null) {
+				worldSize[App.WORLD_X] = Float.parseFloat(lvlLine.split(",")[App.WORLD_X]);
+				worldSize[App.WORLD_Y] = Float.parseFloat(lvlLine.split(",")[App.WORLD_Y]);
 			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return worldSize;
 	}
