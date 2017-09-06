@@ -17,11 +17,16 @@ public class World {
 	
 	// +++ World Variable Decs +++
 	private float[] boardSize;
-	private float[] offset = new float[2];
+	public static float[] offset = new float[2];
 	ArrayList<Sprite> sprites;
 	Player player;
 
-	// +++ WORLD CONSTRUCTOR +++
+	/**
+	 * @param filename
+	 * 
+	 * Constructor for the World, loads sprites, the player, and calculates the
+	 * game board offset so it lives in the middle of the screen.
+	 */
 	public World(String filename) {
 		// Load the sprites into the ArrayList and gets the size of the board.
 		this.boardSize = Loader.getWorldSize(filename);
@@ -29,24 +34,35 @@ public class World {
 		player = Loader.getPlayer();
 		
 		// Calculates number of pixels needed to put board in center of window
-		this.offset[App.WORLD_X] = (App.SCREEN_WIDTH - (this.boardSize[App.WORLD_X] * App.TILE_SIZE)) / 2;
-		this.offset[App.WORLD_Y] = (App.SCREEN_HEIGHT - (this.boardSize[App.WORLD_Y] * App.TILE_SIZE)) / 2;
+		World.offset[App.WORLD_X] = (App.SCREEN_WIDTH - (this.boardSize[App.WORLD_X] * App.TILE_SIZE)) / 2;
+		World.offset[App.WORLD_Y] = (App.SCREEN_HEIGHT - (this.boardSize[App.WORLD_Y] * App.TILE_SIZE)) / 2;
 	}
 	
-	/* Where Object-Manipulating Input can be mapped */
+	/**
+	 * @param input
+	 * @param delta
+	 * 
+	 * Updates the world every delta seconds
+	 */
 	public void update(Input input, int delta) {
 		player.update(input, delta);
 	}
 	
-	/* Where you draw each element in the world */
+	/**
+	 * @param g
+	 * @throws SlickException
+	 * 
+	 * Renders all of the sprites in the Sprite Array,
+	 * then renders the player
+	 */
 	public void render(Graphics g) throws SlickException {
 		
 		// Render all of the pieces as per the level description
 		for(int i=0; i<sprites.size(); i++) {
-			sprites.get(i).render(g, this.offset);
+			sprites.get(i).render(g, World.offset);
 		}
 		
-		player.render(g, this.offset);
+		player.render(g, World.offset);
 		
 	}
 }

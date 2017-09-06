@@ -26,7 +26,15 @@ public class Sprite {
 	final String LOCATION = "res";
 	final String FILETYPE = "png";
 
-	// +++ SPRITE CONSTRCTOR +++
+	/**
+	 * @param type
+	 * @param image_src
+	 * @param x
+	 * @param y
+	 * @throws SlickException
+	 * 
+	 * Constructor, creates a new Sprite and stores the variables appropriately
+	 */
 	public Sprite(String type, String image_src, float x, float y) throws SlickException {
 		
 		this.type = type;
@@ -40,11 +48,22 @@ public class Sprite {
 		this.img = new Image(this.image_src);
 	}
 	
-	// +++ NOT A THING YET +++
+	/**
+	 * @param input
+	 * @param delta
+	 * 
+	 * Extended by Subclass
+	 */
 	public void update(Input input, int delta) {
 	}
 	
-	// +++ RENDERS THIS SPRITE +++
+	/**
+	 * @param g
+	 * @param offset
+	 * @throws SlickException
+	 * 
+	 * Renders the Sprite on the game board
+	 */
 	public void render(Graphics g, float[] offset) throws SlickException {
 		this.img.draw(offset[App.WORLD_X] + this.x, offset[App.WORLD_Y] + this.y);
 	}

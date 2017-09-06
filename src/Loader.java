@@ -8,25 +8,47 @@
  * 
  */
 
+// +++ IMPORTS +++
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
+/**
+ * @author lhedt
+ *
+ * Loads the map from a CSV file, 
+ * and contains methods to check for blocking tiles.
+ */
 public class Loader {
 	
 	// Placeholders for indexes s.t. there's no floating numbers :)
 	final static int TYPE = 0;
 	final static int IMG_X = 1;
 	final static int IMG_Y = 2;
-
+	
 	// Holds the player object for return later
 	public static Player player;
 	
-	// Converts a world coordinate to a tile coordinate,
-	// and returns if that location is a blocked tile
+	// Used to initialise blockedTiles array
+	private static int[] worldSize = new int[2];
+	// Notes where a player can't move to.
+	public static boolean[][] blockedTiles;
+	// Array of types that block the player.
+	static String[] blockedTypes = {"wall"};
+	
+	/** Converts a world coordinate to a tile coordinate,
+	 * and returns if that location is a blocked tile
+	 */
 	public static boolean isBlocked(float x, float y) {
-		// Default to blocked
-		return true;
+		
+		float boardX = x / App.TILE_SIZE;
+		float boardY = y / App.TILE_SIZE;
+		
+		if(blockedTiles[(int)boardX][(int)boardY]) {
+			return true;
+		}
+		return false;
 	}
 		
 	/**
@@ -42,49 +64,51 @@ public class Loader {
 		ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 		Sprite currSprite;
 		
-		/*
-		 * Read in sprites from file
-		 */
+		/* Read in sprites from file */
 		try (BufferedReader br =
 			new BufferedReader(new FileReader(filename))) {
 			
 			String lvlLine;
 			
 			if((lvlLine = br.readLine()) != null) {
-				// Skip this line, but check it exists
+				worldSize[App.WORLD_X] = Integer.parseInt(lvlLine.split(",")[App.WORLD_X]);
+				worldSize[App.WORLD_Y] = Integer.parseInt(lvlLine.split(",")[App.WORLD_Y]);
+				
+				// Initialise blocking array
+				blockedTiles = new boolean[worldSize[App.WORLD_X]][worldSize[App.WORLD_Y]];
 			}
 				
 			// Read the rest of the file and store in an ArrayList<Sprite>
 			while ((lvlLine = br.readLine()) != null) {
 				
 				String type;
-				String image_src;
 				float sprite_x;
 				float sprite_y;
 				
 				out[TYPE] = lvlLine.split(",")[TYPE];
 				out[IMG_X] = lvlLine.split(",")[IMG_X];
 				out[IMG_Y] = lvlLine.split(",")[IMG_Y];
-				
-				// Create a player type for the player object
-				if(out[TYPE].equals("player")) {
-					type = "player";
-					image_src = "player_left";
-					sprite_x = Float.parseFloat(out[IMG_X]);
-					sprite_y = Float.parseFloat(out[IMG_Y]);
-					
-					player = new Player(type, image_src, sprite_x, sprite_y);
-					continue;
-				}
-				
+
 				// Calculate needed values :D
-				type = image_src = out[TYPE];
+				type = out[TYPE];
 				sprite_x = Float.parseFloat(out[IMG_X]);
 				sprite_y = Float.parseFloat(out[IMG_Y]);
 				
-				// Create a new Sprite object with the above info and add it to the ArrayList
-				currSprite = new Sprite(type, image_src, sprite_x, sprite_y);
-				sprites.add(currSprite);
+				// Create a player type for the player object
+				if(type.equals("player")) {
+					
+					player = new Player(type, "player_left", sprite_x, sprite_y);
+					
+				} else {
+					// Create a new Sprite object with the above info and add it to the ArrayList
+					currSprite = new Sprite(type, type, sprite_x, sprite_y);
+					sprites.add(currSprite);
+				}
+				
+				// Determine if tile blocks the player from moving
+				if(Arrays.asList(blockedTypes).contains(type)) {
+					blockedTiles[Integer.parseInt(out[IMG_X])][Integer.parseInt(out[IMG_Y])] = true;
+				}
 			}
 				
 		} catch (Exception e) {
@@ -103,7 +127,6 @@ public class Loader {
 	public static Player getPlayer() {
 		
 		return Loader.player;
-		
 	}
 
 	/*

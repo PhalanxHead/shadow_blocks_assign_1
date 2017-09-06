@@ -41,6 +41,7 @@ public class App extends BasicGame
     public void init(GameContainer gc)
     throws SlickException
     {
+    	// Added File passing for extension and configuration reasons
     	world = new World(lvl0File);
     }
 
