@@ -8,12 +8,17 @@
  * 
  */
 
+import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 
-public class World {	
+public class World {
+	
+	ArrayList<Sprite> sprites;
+	
 	public World() {
-		Loader.loadSprites("res/levels/0.lvl");
+		sprites = Loader.loadSprites("res/levels/0.lvl");
 	}
 	
 	/* Where Object-Manipulating Input can be mapped */
@@ -21,6 +26,11 @@ public class World {
 	}
 	
 	/* Where you draw each element in the world */
-	public void render(Graphics g) {
+	public void render(Graphics g) throws SlickException {
+		
+		for(int i=0; i<sprites.size(); i++) {
+			sprites.get(i).render(g);
+		}
+		
 	}
 }

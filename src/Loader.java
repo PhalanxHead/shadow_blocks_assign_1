@@ -23,9 +23,9 @@ public class Loader {
 	/**
 	 * Loads the sprites from a given file.
 	 * @param filename
-	 * @return
+	 * @return Sprite[]
 	 */
-	public static Sprite[] loadSprites(String filename) {
+	public static ArrayList<Sprite> loadSprites(String filename) {
 		
 
 		String[] out = new String[3];
@@ -33,23 +33,45 @@ public class Loader {
 		ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 		Sprite currSprite;
 		
+		// Placeholders for indexes s.t. there's no floating numbers :)
+		final int IMG_SRC = 0;
+		final int IMG_X = 1;
+		final int IMG_Y = 2;
+		final int WORLD_X = 0;
+		final int WORLD_Y = 1;
+		
+		// Need to reference the home of the assets
+		final String LOCATION = "res";
+		final String FILETYPE = "png";
+		
+		/*
+		 * Read in sprites from file
+		 */
 		try (BufferedReader br =
 			new BufferedReader(new FileReader(filename))) {
 			
 			String lvlLine;
 			
+				// Grab the world size and store it
 				if((lvlLine = br.readLine()) != null) {
-					worldSize[0] = Float.parseFloat(lvlLine.split(",")[0]);
-					worldSize[1] = Float.parseFloat(lvlLine.split(",")[1]);
+					worldSize[WORLD_X] = Float.parseFloat(lvlLine.split(",")[WORLD_X]);
+					worldSize[WORLD_Y] = Float.parseFloat(lvlLine.split(",")[WORLD_Y]);
 				}
 				
+				// Read the rest of the file and store in an ArrayList<Sprite>
 				while ((lvlLine = br.readLine()) != null) {
 					
-					out[0] = lvlLine.split(",")[0];
-					out[1] = lvlLine.split(",")[1];
-					out[2] = lvlLine.split(",")[2];
+					out[IMG_SRC] = lvlLine.split(",")[IMG_SRC];
+					out[IMG_X] = lvlLine.split(",")[IMG_X];
+					out[IMG_Y] = lvlLine.split(",")[IMG_Y];
 					
-					currSprite = new Sprite(out[0], Float.parseFloat(out[1]), Float.parseFloat(out[2]));
+					if(out[IMG_SRC].equals("player")) {
+						//Add a player object to the array
+						break;
+					}
+					
+					currSprite = new Sprite(String.format("%s/%s.%s", LOCATION, lvlLine.split(",")[IMG_SRC], FILETYPE), 
+							Float.parseFloat(out[IMG_X]), Float.parseFloat(out[IMG_Y]));
 					sprites.add(currSprite);
 			}
 				
@@ -57,7 +79,7 @@ public class Loader {
 			e.printStackTrace();
 		}
 
-		return null;
+		return sprites;
 	}
 	
 }
