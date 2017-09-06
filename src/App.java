@@ -24,6 +24,11 @@ public class App extends BasicGame
     public static final int SCREEN_HEIGHT = 600;
     /** size of the tiles, in pixels */
     public static final int TILE_SIZE = 32;
+    /** Index offsets to remove magic numbers :) */
+	final static int WORLD_X = 0;
+	final static int WORLD_Y = 1;
+    
+    private String lvl0File = "res/levels/0.lvl";
     
     private World world;
 
@@ -36,7 +41,7 @@ public class App extends BasicGame
     public void init(GameContainer gc)
     throws SlickException
     {
-    	world = new World();
+    	world = new World(lvl0File);
     }
 
     /** Update the game state for a frame.
